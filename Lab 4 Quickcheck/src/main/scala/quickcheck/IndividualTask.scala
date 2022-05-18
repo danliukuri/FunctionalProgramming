@@ -17,27 +17,18 @@ abstract class IndividualTask extends Properties("Individual Task") {
     myFunc.lift(x, n, c)
   }
 
-  val prop1Gen = for {
-    x <- Gen.choose(11.0, 111.0)
-    n <- Gen.choose(11.0, 111.0)
-    c <- Gen.choose(11.0, 111.0)
+  val propGen: Gen[(Double, Double, Double)] = for {
+    x <- Gen.choose(1.0, 19.0)
+    n <- Gen.choose(1.0, 19.0)
+    c <- Gen.choose(1.0, 19.0)
   } yield (x, n, c)
-  property("prop1") = forAll(prop1Gen) { ( t: (Double, Double, Double) ) =>
-    val x = t._1
-    val n = t._2
-    val c = t._3
-    (x != num) ==> lifting(x, n, c).contains(c + x)
-  }
 
-  val prop2Gen = for {
-    x <- Gen.choose(-111.0, -11.0)
-    n <- Gen.choose(-111.0, -11.0)
-    c <- Gen.choose(-111.0, -11.0)
-  } yield (x, n, c)
-  property("prop2") = forAll(prop2Gen) { ( t: (Double, Double, Double) ) =>
-    val x = t._1
-    val n = t._2
-    val c = t._3
-    lifting(x, n, c).contains(pow(x, n))
+  property("prop1") = forAll(propGen) { ( t: (Double, Double, Double) ) =>
+    val (x ,n, c) = t
+    (x > num) ==> lifting(x, n, c).contains(c + x)
+  }
+  property("prop2") = forAll(propGen) { ( t: (Double, Double, Double) ) =>
+    val (x ,n, c) = t
+    (x < num) ==> lifting(x, n, c).contains(pow(x, n))
   }
 }
