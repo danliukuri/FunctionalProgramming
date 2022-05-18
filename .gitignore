@@ -21,5 +21,6 @@ project/*-shim.sbt
 project/project/
 project/target/
 target/
+null/
 .scala_dependencies
 .worksheet
