@@ -298,7 +298,7 @@ trait ContactsCodecs:
     ObjectEncoder.field[List[Person]]("people").transform[Contacts](contacts => contacts.people)
 
   /** The decoder for `Contacts` */
-  implicit val contactDecoder: Decoder[Contacts] =
+  given Decoder[Contacts] =
     Decoder.fromPartialFunction { case j: Json.Obj => Contacts(j.fields("people").decodeAs[List[Person]].get) }
 
 end ContactsCodecs

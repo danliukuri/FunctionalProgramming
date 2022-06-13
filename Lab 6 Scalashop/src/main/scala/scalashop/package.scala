@@ -52,9 +52,9 @@ package object scalashop extends BoxBlurKernelInterface {
       var count = 0
       var resR, resG, resB, resA = 0
       var curX = clamp(x - radius, 0, src.width)
-      while (curX <= clamp(x + radius, 0, src.width - 1)) {
+      while (curX < clamp(x + radius, 0, src.width)) {
         var curY = clamp(y - radius, 0, src.height)
-        while (curY <= clamp(y + radius, 0, src.height - 1)) {
+        while (curY < clamp(y + radius, 0, src.height)) {
           val pixel = src(curX, curY)
           count += 1
           resR += red(pixel); resG += green(pixel); resB += blue(pixel); resA += alpha(pixel)
